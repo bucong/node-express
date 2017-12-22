@@ -6,9 +6,13 @@
 		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style type="text/css">
+			.index .list-group-item{display: flex;justify-content: space-between;line-height: 46px;}
+			.index .list-group-item .del{display: block;padding: 0 6px;cursor: pointer;font-size: 24px;color: #f00;}
+		</style>
 	</head>
 	<body>
-		<article class="container">
+		<article class="container index">
 			<ul class="list-group">
 			  
 			</ul>
@@ -26,9 +30,9 @@
 					var list=res.result;
 					var str='';
 					for(let item of list){
-						str+='<li class="list-group-item">'+item.username+'</li>'
+						str+='<li class="list-group-item"><span>'+item.username+'</span><span class="del">&times;</span></li>'
 					}
-					$('.list-group').append(str);
+					$('.index .list-group').append(str);
 				},error:function(res){
 					console.log(res);
 				}

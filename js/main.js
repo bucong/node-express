@@ -1,3 +1,4 @@
+//登录
 function login(){
 	$.ajax({
 		type:"get",
@@ -25,6 +26,7 @@ function login(){
 	});
 	return false;
 }
+//注册
 function register(){
 	$.ajax({
 		type:"get",
@@ -53,3 +55,28 @@ function register(){
 	});
 	return false;
 }
+
+//删除
+$('.index').on('click','.del',function(){
+	console.log($(this).prev().html());
+	var delname=$(this).prev().html();
+	$.ajax({
+		type:"get",
+		url:"http://127.0.0.1:3000/del_user",
+		data:{
+			name:delname
+		},
+		async:true,
+		dataType:'JSON',
+		success:function(res){
+			console.log(res);
+			if(res.result=='success'){
+				window.location.reload()
+			}else{
+				alert('删除失败');
+			}
+		},error:function(res){
+			console.log(res);
+		}
+	});
+})

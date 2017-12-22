@@ -65,6 +65,25 @@ server.use('/userlist',(req,res)=>{
 		}
 	});
 })
+
+//删除用户
+server.use('/del_user',(req,res)=>{
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	let user=req.query;
+	console.log('删除');
+	console.log(user.name);
+	let sql='delete from user where username="'+user.name+'"';
+	connection.query(sql, function (error, result) {
+		if (error) {throw error}
+		else{
+			res.send({
+				result: 'success'
+			})
+		}
+		console.log(result);
+	});
+})
+
 server.use(express.static('./'));
 
 //connection.end();
