@@ -80,3 +80,32 @@ $('.index').on('click','.del',function(){
 		}
 	});
 })
+
+//修改密码
+var changePassName='';
+$('.index').on('click','.change-pass',function(){
+	console.log($(this).prev().html());
+	changePassName=$(this).prev().html();
+})
+$('.change-val').click(function(){
+	$.ajax({
+		type:"get",
+		url:"http://127.0.0.1:3000/change_pass",
+		data:{
+			name:changePassName,
+			newpass: $('#newpass').val()
+		},
+		async:true,
+		dataType:'JSON',
+		success:function(res){
+			console.log(res);
+			if(res.result=='success'){
+				alert('修改成功')
+			}else{
+				alert('修改失败');
+			}
+		},error:function(res){
+			console.log(res);
+		}
+	});
+})

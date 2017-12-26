@@ -48,7 +48,6 @@ server.use('/register',(req,res)=>{
 				result: 'success'
 			})
 		}
-		console.log(result);
 	});
 })
 
@@ -56,7 +55,7 @@ server.use('/register',(req,res)=>{
 server.use('/userlist',(req,res)=>{
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	console.log('用户列表');
-	connection.query('select * from user', function (error, result) {
+	connection.query('select id,username,userpass from user', function (error, result) {
 		if (error) throw error
 		else{
 			res.send({
@@ -81,6 +80,24 @@ server.use('/del_user',(req,res)=>{
 			})
 		}
 		console.log(result);
+	});
+})
+
+//修改密码
+server.use('/change_pass',(req,res)=>{
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	let user=req.query;
+	console.log('修改密码');
+	console.log('姓名：'+user.name);
+	console.log('新密码：'+user.newpass);
+	let sql='update user set userpass="'+user.newpass+'" where username="'+user.name+'"';
+	connection.query(sql, function (error, result) {
+		if (error) {throw error}
+		else{
+			res.send({
+				result: 'success'
+			})
+		}
 	});
 })
 
