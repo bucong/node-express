@@ -1,7 +1,7 @@
 //登录
 function login(){
 	$.ajax({
-		type:"get",
+		type:"post",
 		url:"http://127.0.0.1:3000/login",
 		data:{
 			name:$('#username').val(),
@@ -29,7 +29,7 @@ function login(){
 //注册
 function register(){
 	$.ajax({
-		type:"get",
+		type:"post",
 		url:"http://127.0.0.1:3000/register",
 		data:{
 			name:$('#username').val(),
@@ -58,8 +58,7 @@ function register(){
 
 //删除
 $('.index').on('click','.del',function(){
-	console.log($(this).prev().html());
-	var delname=$(this).prev().html();
+	var delname=$(this).prev().prev().html();
 	$.ajax({
 		type:"get",
 		url:"http://127.0.0.1:3000/del_user",

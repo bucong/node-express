@@ -1,5 +1,6 @@
 const express = require('express');
 const server = express();
+const bodyParser = require('body-parser');//post接收参数
 const mysql = require('mysql');
 //连接数据库
 var connection = mysql.createConnection({
@@ -9,11 +10,16 @@ var connection = mysql.createConnection({
   database : 'node'
 });
 connection.connect();
+
+//把post请求的参数转换为json对象
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({extended:false}));
+
 //登录
-server.use('/login',(req,res)=>{
+server.post('/login',(req,res)=>{
 	res.setHeader("Access-Control-Allow-Origin", "*");
-	let user=req.query;
-	console.log('登录')
+	let user=req.body;
+	console.log('登录');
 	console.log(user.name);
 	console.log(user.pass);
 	connection.query('select * from user', function (error, result) {
@@ -33,9 +39,9 @@ server.use('/login',(req,res)=>{
 })
 
 //注册
-server.use('/register',(req,res)=>{
+server.post('/register',(req,res)=>{
 	res.setHeader("Access-Control-Allow-Origin", "*");
-	let user=req.query;
+	let user=req.body;
 	console.log('注册');
 	console.log(user.name);
 	console.log(user.pass);
@@ -58,9 +64,7 @@ server.use('/userlist',(req,res)=>{
 	connection.query('select id,username,userpass from user', function (error, result) {
 		if (error) throw error
 		else{
-			res.send({
-				result: result
-			})
+			res.status(200).json(result);
 		}
 	});
 })
