@@ -11,10 +11,13 @@
 			.index .list-group-item{display: flex;justify-content: space-between;line-height: 24px;}
 			.index .list-group-item .del{display: block;padding: 0 6px;cursor: pointer;font-size: 24px;color: #f00;}
 			.change-pass{cursor: pointer;}
+			.flex{display: flex;justify-content: space-between;}
+			.add-news{font-size: 18px;cursor: pointer;color: red;}
 		</style>
 	</head>
 	<body>
 		<article class="container index">
+			<h3>用户列表</h3>
 			<ul class="list-group">
 			  
 			</ul>
@@ -34,6 +37,10 @@
 			        </div>
 			    </div>
 			</div>
+			<section class="news-list">
+				<h3 class="flex"><span>文章列表</span><a href="news.html" class="add-news">&plus;新增文章</a></h3>
+				<ul style="padding-left: 0"></ul>
+			</section>
 		</article>
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
@@ -48,13 +55,31 @@
 					var list=res;
 					var str='';
 					for(let item of list){
-						str+='<li class="list-group-item"><span>'+item.username+'</span><span class="change-pass" data-target="#modal1" data-toggle="modal">修改密码</span><span class="del">&times;</span></li>'
+						str+='<li class="list-group-item flex"><span>'+item.username+'</span><span class="change-pass" data-target="#modal1" data-toggle="modal">修改密码</span><span class="del">&times;</span></li>'
 					}
 					$('.index .list-group').append(str);
 				},error:function(res){
 					console.log(res);
 				}
-			})
+			});
+      $.ajax({
+          type: 'get',
+          url:'/news/news_list',
+          data:'',
+          async:true,
+          dataType:'JSON',
+          success:function(res){
+              console.log(res);
+              var list=res;
+              var str='';
+              for(let item of list){
+                  str+='<li class="list-group-item"><a href="newsDetail.html?id='+item.id+'">'+item.name+'</a><span>类别：'+item.type+'</span></li>'
+              }
+              $('.index .news-list ul').append(str);
+          },error:function(res){
+              console.log(res);
+          }
+      });
 		</script>
 	</body>
 </html>

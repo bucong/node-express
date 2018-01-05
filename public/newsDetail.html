@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<article class="container news-detail">
+			<h2></h2>
+			<h5></h5>
+			<i></i>
+			<div style="padding-top: 30px;"></div>
+			<button class="btn btn-primary change-news"><a href="news.html" style="color: #fff;">修改文章</a></button>
+		</article>
+		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$('.change-news a').attr('href','news.html?id='+GetUrl("id"));
+			$.ajax({
+				type: 'get',
+				url:'/news/news_detail',
+				data:{id:GetUrl("id")},
+				async:true,
+				dataType:'JSON',
+				success:function(res){
+					console.log(res);
+					$('.news-detail h2').html(res.name);
+					$('.news-detail h5').html('类别：'+res.type);
+					$('.news-detail i').html('时间：'+transDate(res.datetime));
+					$('.news-detail div').html(res.content);
+				},error:function(res){
+					console.log(res);
+				}
+			});
+      function GetUrl(name) {
+          var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+          var r = window.location.search.substr(1).match(reg);
+          if(r!=null)return  unescape(r[2]); return null;
+      }
+      function transDate(dateStr){
+          dateStr=parseInt(dateStr)
+          var date = new Date(dateStr);
+          var Y = date.getFullYear();
+          var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1);
+          var D = date.getDate()<10 ? '0'+date.getDate() : date.getDate();
+          var H = date.getHours()<10 ? '0'+date.getHours() : date.getHours();
+          var m = date.getMinutes()<10 ? '0'+date.getMinutes() : date.getMinutes();
+          return (Y+'-'+M+'-'+D+' '+H+':'+m);
+      }
+		</script>
+	</body>
+</html>
