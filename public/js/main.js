@@ -207,3 +207,21 @@ $('.change-news').click(function(){
         });
     }
 });
+
+//上传首页banner
+$('#banner').change(function(){
+    $("#bannerForm").ajaxSubmit({
+        type: 'post',
+        url: "/banner",
+        success: function(res,data){
+            console.log(res)
+            if(res.url){
+                $('.img-box').append('<img src="'+res.url+'" alt=""/>');
+            }
+        },
+        error: function(){
+            mui.alert('上传失败');
+            return;
+        }
+    });
+});

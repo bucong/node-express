@@ -13,14 +13,30 @@
 			.change-pass{cursor: pointer;}
 			.flex{display: flex;justify-content: space-between;}
 			.add-news{font-size: 18px;cursor: pointer;color: red;}
+			.carousel-inner .item img{margin: 0 auto;}
 		</style>
 	</head>
 	<body>
+		<div class="carousel slide" id="car">
+			<ol class="carousel-indicators">
+				<!--data-slide-to="index"控制点和轮播子元素的index相对应-->
+				<li class="active" data-target="#car" data-slide-to="0"></li>
+				<li data-target="#car" data-slide-to="1"></li>
+				<li data-target="#car" data-slide-to="2"></li>
+				<li data-target="#car" data-slide-to="3"></li>
+			</ol>
+			<div class="carousel-inner in">
+				<div class="item active"><img src="images/1.jpg" alt="1"/></div>
+				<div class="item"><img src="images/2.jpg" alt="2"/></div>
+				<div class="item"><img src="images/3.jpg" alt="3"/></div>
+				<div class="item"><img src="images/4.jpg" alt="4"/></div>
+			</div>
+			<a href="#car" class="carousel-control left" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+			<a href="#car" class="carousel-control right" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+		</div>
 		<article class="container index">
 			<h3>用户列表</h3>
-			<ul class="list-group">
-			  
-			</ul>
+			<ul class="list-group"></ul>
 			<div class="modal fade" id="modal1">
 			    <div class="modal-dialog">
 			        <div class="modal-content">
@@ -79,6 +95,9 @@
           },error:function(res){
               console.log(res);
           }
+      });
+      $('.carousel').carousel({
+          interval:3000
       });
 		</script>
 	</body>
