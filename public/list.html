@@ -4,35 +4,30 @@
 		<meta charset="UTF-8">
 		<title></title>
 		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="css/style.css">
 		<script src="js/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>
 		<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<style type="text/css">
-			.index{padding-top: 50px;}
-			.index .list-group-item{display: flex;justify-content: space-between;line-height: 24px;}
-			.index .list-group-item .del{display: block;padding: 0 6px;cursor: pointer;font-size: 24px;color: #f00;}
-			.change-pass{cursor: pointer;}
-			.flex{display: flex;justify-content: space-between;}
-			.add-news{font-size: 18px;cursor: pointer;color: red;}
-			.carousel-inner .item img{margin: 0 auto;}
-		</style>
 	</head>
 	<body>
 		<div class="carousel slide" id="car">
 			<ol class="carousel-indicators">
 				<!--data-slide-to="index"控制点和轮播子元素的index相对应-->
-				<li class="active" data-target="#car" data-slide-to="0"></li>
-				<li data-target="#car" data-slide-to="1"></li>
-				<li data-target="#car" data-slide-to="2"></li>
-				<li data-target="#car" data-slide-to="3"></li>
+				<!--<li class="active" data-target="#car" data-slide-to="0"></li>-->
+				<!--<li data-target="#car" data-slide-to="1"></li>-->
+				<!--<li data-target="#car" data-slide-to="2"></li>-->
+				<!--<li data-target="#car" data-slide-to="3"></li>-->
 			</ol>
 			<div class="carousel-inner in">
-				<div class="item active"><img src="images/1.jpg" alt="1"/></div>
-				<div class="item"><img src="images/2.jpg" alt="2"/></div>
-				<div class="item"><img src="images/3.jpg" alt="3"/></div>
-				<div class="item"><img src="images/4.jpg" alt="4"/></div>
+				<!--<div class="item active"><img src="images/banner/1.jpg" alt="1"/></div>-->
+				<!--<div class="item"><img src="images/banner/2.jpg" alt="2"/></div>-->
+				<!--<div class="item"><img src="images/banner/3.jpg" alt="3"/></div>-->
+				<!--<div class="item"><img src="images/banner/4.jpg" alt="4"/></div>-->
 			</div>
 			<a href="#car" class="carousel-control left" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
 			<a href="#car" class="carousel-control right" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+		</div>
+		<div class="container change-banner-a">
+			<a href="bannerSet.html">修改轮播图</a>
 		</div>
 		<article class="container index">
 			<h3>用户列表</h3>
@@ -60,6 +55,32 @@
 		</article>
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+        $.ajax({
+            type: 'get',
+            url:'/banner',
+            data:'',
+            async:true,
+            dataType:'JSON',
+            success:function(res){
+                console.log(res);
+                var imgList=res.banner;
+                var str='';
+                var indicators='';
+                for(var i=0;i<imgList.length;i++){
+										if(i==0){
+                        str+='<div class="item active"><img src="images/banner/'+imgList[i]+'" alt=""/></div>';
+                        indicators+='<li class="active" data-target="#car" data-slide-to="'+i+'"></li>';
+										}else{
+                        str+='<div class="item"><img src="images/banner/'+imgList[i]+'" alt=""/></div>';
+                        indicators+='<li data-target="#car" data-slide-to="'+i+'"></li>';
+										}
+                }
+                $('.carousel-inner').append(str);
+								$('.carousel-indicators').append(indicators);
+            },error:function(res){
+                console.log(res);
+            }
+        });
 			$.ajax({
 				type: 'get',
 				url:'/user/userlist',

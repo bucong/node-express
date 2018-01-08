@@ -212,16 +212,40 @@ $('.change-news').click(function(){
 $('#banner').change(function(){
     $("#bannerForm").ajaxSubmit({
         type: 'post',
-        url: "/banner",
+        url: "/banner_set",
+        data: {id: 1},
         success: function(res,data){
             console.log(res)
             if(res.url){
-                $('.img-box').append('<img src="'+res.url+'" alt=""/>');
+                window.location.reload();
             }
         },
         error: function(){
             mui.alert('上传失败');
             return;
+        }
+    });
+});
+
+//删除首页banner
+$('.banner-list').on('click','.del-banner',function(){
+    console.log($(this).prev().attr('src'));
+    $.ajax({
+        type: 'post',
+        url:'/banner_del',
+        data:{
+            file: $(this).prev().attr('src')
+        },
+        async:true,
+        dataType:'JSON',
+        success:function(res){
+            console.log(res);
+            if(res.result=='success'){
+                alert('删除成功');
+                window.location.reload();
+            }
+        },error:function(res){
+            console.log(res);
         }
     });
 });
