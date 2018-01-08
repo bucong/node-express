@@ -213,7 +213,7 @@ $('#banner').change(function(){
     $("#bannerForm").ajaxSubmit({
         type: 'post',
         url: "/banner_set",
-        data: {id: 1},
+        data: '',
         success: function(res,data){
             console.log(res)
             if(res.url){
