@@ -18,7 +18,7 @@ router.get('/banner',(req,res)=>{
 router.post('/banner_set',multiparty(),function(req, res,next) {
     var posterData = req.files.imgFile;
     var filePath = posterData.path;
-    var originalFilename = posterData.originalFilename
+    var originalFilename = posterData.originalFilename;
     if (originalFilename) {
         fs.readFile(filePath, function(err, data) {
             var timestamp = Date.now();//当前时间戳

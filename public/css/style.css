@@ -27,9 +27,6 @@
   font-size: 18px;
   color: #000;
 }
-.index {
-  padding-top: 50px;
-}
 .index .list-group-item {
   display: flex;
   justify-content: space-between;
@@ -44,10 +41,6 @@
 }
 .change-pass {
   cursor: pointer;
-}
-.flex {
-  display: flex;
-  justify-content: space-between;
 }
 .add-news {
   font-size: 18px;
