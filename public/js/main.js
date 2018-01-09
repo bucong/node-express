@@ -217,21 +217,28 @@ $('.change-news').click(function(){
 
 //上传首页banner
 $('#banner').change(function(){
-    $("#bannerForm").ajaxSubmit({
-        type: 'post',
-        url: "/banner_set",
-        data: '',
-        success: function(res,data){
+    var imgUpload = $(this)[0];
+    console.log(imgUpload.type)
+    // if(!/image\/\w+/.test(imgUpload.type)){
+    //     alert('上传的文件必须为图片。');
+    //     return false;
+    // }
+    var formData = new FormData($('#bannerForm')[0]);
+    $.ajax({
+        url: '/banner_set',
+        type: 'POST',
+        data: formData,
+        dataType: 'json',
+        async: false,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(res){
             console.log(res)
-            if(res.url){
-                window.location.reload();
-            }
-        },
-        error: function(){
-            mui.alert('上传失败');
-            return;
+        },error:function(res){
+            console.log(res)
         }
-    });
+    })
 });
 
 //删除首页banner
