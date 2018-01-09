@@ -25,14 +25,36 @@
   padding: 20px;
 }
 .change-banner-a{
-  padding: 20px 0 0 0;
+  margin: 20px 0;
   a{
     font-size: 18px;
-    color: #000;
+    color: #f00;
   }
 }
-.index .list-group-item{display: flex;justify-content: space-between;line-height: 24px;}
-.index .list-group-item .del{display: block;padding: 0 6px;cursor: pointer;font-size: 24px;color: #f00;}
+.index .list-group-item{
+  display: flex;justify-content: space-between;line-height: 24px;
+  .del{display: block;padding: 0 6px;cursor: pointer;font-size: 24px;color: #f00;}
+  span:first-child{
+    display: inline-block;
+    width: 150px;
+  }
+}
 .change-pass{cursor: pointer;}
 .add-news{font-size: 18px;cursor: pointer;color: red;}
 #car .carousel-inner .item img{margin: 0 auto;width: 100%;height:340px;}
+.register{
+  form{
+    padding: 50px;
+    h2{
+      text-align: center;
+    }
+  }
+  .alert{
+    display: none;
+  }
+}
+.news{padding-top: 100px;}
+.news .btn-primary{margin-top: 20px;}
+.news .change-news{display: none;}
+.news a{ color: #fff;}
+.news a:hover{color: #fff}

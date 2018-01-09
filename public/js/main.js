@@ -26,6 +26,9 @@ function register(){
     if($('#username').val()==''||$('#userpass').val()==''||$('#mobile').val()==''||$('#checkNum').val()==''){
         alert('请将信息填写完整！');
         return false;
+    }else if($('#username').val().legth<6||$('#userpass').val().legth<6){
+        alert('用户名和密码不得少于6位！');
+        return false;
     }
     $.ajax({
         type:"post",
@@ -88,7 +91,7 @@ function login(){
 }
 
 
-//删除
+//删除用户
 $('.index').on('click','.del',function(){
 	var delname=$(this).prev().prev().html();
 	$.ajax({
@@ -119,6 +122,10 @@ $('.index').on('click','.change-pass',function(){
 	changePassName=$(this).prev().html();
 });
 $('.change-val').click(function(){
+    if($('#newpass').val().length<6){
+        alert('密码长度不得少于6位！');
+        return false;
+    }
 	$.ajax({
 		type:"get",
 		url:"/user/change_pass",

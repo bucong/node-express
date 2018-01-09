@@ -21,11 +21,11 @@
   padding: 20px;
 }
 .change-banner-a {
-  padding: 20px 0 0 0;
+  margin: 20px 0;
 }
 .change-banner-a a {
   font-size: 18px;
-  color: #000;
+  color: #f00;
 }
 .index .list-group-item {
   display: flex;
@@ -39,6 +39,10 @@
   font-size: 24px;
   color: #f00;
 }
+.index .list-group-item span:first-child {
+  display: inline-block;
+  width: 150px;
+}
 .change-pass {
   cursor: pointer;
 }
@@ -51,4 +55,28 @@
   margin: 0 auto;
   width: 100%;
   height: 340px;
+}
+.register form {
+  padding: 50px;
+}
+.register form h2 {
+  text-align: center;
+}
+.register .alert {
+  display: none;
+}
+.news {
+  padding-top: 100px;
+}
+.news .btn-primary {
+  margin-top: 20px;
+}
+.news .change-news {
+  display: none;
+}
+.news a {
+  color: #fff;
+}
+.news a:hover {
+  color: #ffffff;
 }
