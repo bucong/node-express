@@ -80,3 +80,6 @@
 .news a:hover {
   color: #ffffff;
 }
+.news-detail .change-news {
+  margin-top: 50px;
+}
