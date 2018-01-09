@@ -58,9 +58,10 @@ router.post('/news_change',(req,res)=>{
     console.log(news.content);
     var datetime=Date.parse(new Date());
     console.log(datetime);
-    let sql='update news set name="'+news.name+'",type="'+news.type+'",content="'+news.content+'",datetime="'+datetime+'" where id='+news.id;
+    let sql='update news set name=?,type=?,content=?,datetime=? where id=?';
+    let sqlData=[news.name,news.type,news.content,datetime,news.id];
     console.log(sql)
-    connection.query(sql, function (error, result) {
+    connection.query(sql,sqlData, function (error, result) {
         if (error) throw error
         else{
             res.send({
