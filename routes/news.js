@@ -7,18 +7,29 @@ router.post('/news_insert',(req,res)=>{
     let news=req.body;
     console.log('插入文章');
     console.log(news.name);
-    console.log(news.type);
-    console.log(news.content);
-    var datetime=Date.parse(new Date());
-    console.log(datetime);
-    let sql='insert into news(type,name,content,datetime)  value(?,?,?,?)';
-    let sqlData=[news.type,news.name,news.content,datetime];
-    connection.query(sql,sqlData, function (error, result) {
+    connection.query('select * from news where name="'+news.name+'"', function (error, result) {
         if (error) throw error
         else{
-            res.send({
-                result: 'success'
-            })
+            if(result.length>0){
+                res.send({
+                    msg:'您的文章名已存在！'
+                })
+            }else{
+                console.log(news.type);
+                console.log(news.content);
+                var datetime=Date.parse(new Date());
+                console.log(datetime);
+                let sql='insert into news(type,name,content,datetime)  value(?,?,?,?)';
+                let sqlData=[news.type,news.name,news.content,datetime];
+                connection.query(sql,sqlData, function (error, result) {
+                    if (error) throw error
+                    else{
+                        res.send({
+                            result: 'success'
+                        })
+                    }
+                });
+            }
         }
     });
 });
@@ -70,6 +81,21 @@ router.post('/news_change',(req,res)=>{
         }
     });
 });
-
+//删除文章
+router.get('/del_news',(req,res)=>{
+    let news=req.query;
+    console.log('删除');
+    console.log(news.id);
+    let sql='delete from news where id="'+news.id+'"';
+    connection.query(sql, function (error, result) {
+        if (error) {throw error}
+        else{
+            res.send({
+                result: 'success'
+            })
+        }
+        console.log(result);
+    });
+});
 
 module.exports = router;

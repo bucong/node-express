@@ -174,7 +174,7 @@ $('.sub-news').click(function(){
                 if(res.result=='success'){
                     alert('上传成功')
                 }else{
-                    alert('上传失败');
+                    alert(res.msg);
                 }
             },error:function(res){
                 console.log(res);
