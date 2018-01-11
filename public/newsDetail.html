@@ -20,7 +20,7 @@
 		</article>
 		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			$('.change-news a').attr('href','news.html?id='+GetUrl("id"));
+			$('.change-news').attr('href','news.html?id='+GetUrl("id"));
 			$.ajax({
 				type: 'get',
 				url:'/news/news_detail',

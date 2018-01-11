@@ -94,25 +94,27 @@ function login(){
 //删除用户
 $('.index').on('click','.del',function(){
 	var delname=$(this).prev().prev().html();
-	$.ajax({
-		type:"get",
-		url:"/user/del_user",
-		data:{
-			name:delname
-		},
-		async:true,
-		dataType:'JSON',
-		success:function(res){
-			console.log(res);
-			if(res.result=='success'){
-				window.location.reload()
-			}else{
-				alert('删除失败');
-			}
-		},error:function(res){
-			console.log(res);
-		}
-	});
+	if(confirm('确定要删除该用户吗？')){
+        $.ajax({
+            type:"get",
+            url:"/user/del_user",
+            data:{
+                name:delname
+            },
+            async:true,
+            dataType:'JSON',
+            success:function(res){
+                console.log(res);
+                if(res.result=='success'){
+                    window.location.reload()
+                }else{
+                    alert('删除失败');
+                }
+            },error:function(res){
+                console.log(res);
+            }
+        });
+    }
 });
 
 //修改密码
@@ -235,6 +237,9 @@ $('#banner').change(function(){
         processData: false,
         success: function(res){
             console.log(res)
+            if(res.url){
+                window.location.reload();
+            }
         },error:function(res){
             console.log(res)
         }
@@ -244,22 +249,23 @@ $('#banner').change(function(){
 //删除首页banner
 $('.banner-list').on('click','.del-banner',function(){
     console.log($(this).prev().attr('src'));
-    $.ajax({
-        type: 'post',
-        url:'/banner_del',
-        data:{
-            file: $(this).prev().attr('src')
-        },
-        async:true,
-        dataType:'JSON',
-        success:function(res){
-            console.log(res);
-            if(res.result=='success'){
-                alert('删除成功');
-                window.location.reload();
+    if(confirm('确定要删除该用户吗？')) {
+        $.ajax({
+            type: 'post',
+            url: '/banner_del',
+            data: {
+                file: $(this).prev().attr('src')
+            },
+            async: true,
+            dataType: 'JSON',
+            success: function (res) {
+                console.log(res);
+                if (res.result == 'success') {
+                    window.location.reload();
+                }
+            }, error: function (res) {
+                console.log(res);
             }
-        },error:function(res){
-            console.log(res);
-        }
-    });
+        });
+    }
 });
