@@ -36,8 +36,9 @@
 		<script type="text/javascript">
         var E = window.wangEditor
         var editor = new E('#editor')
-        editor.customConfig.uploadImgShowBase64 = true;
-        //editor.customConfig.uploadImgServer = '/upload';//上传图片到服务器文件夹
+        //editor.customConfig.uploadImgShowBase64 = true;
+        editor.customConfig.uploadImgServer = '/upload_img';//上传图片到服务器文件夹
+        editor.customConfig.uploadFileName = 'imgFile';
         editor.create();
 
         if(GetUrl("id")){
