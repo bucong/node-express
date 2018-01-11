@@ -47,7 +47,7 @@ function register(){
             if(res.result=='success'){
                 $('.alert-success').show();
                 setTimeout(function(){
-                    window.location.href="login.html";
+                    window.location.href="index.html";
                 },2000)
 
             }else{
@@ -63,6 +63,15 @@ function register(){
 
 //登录
 function login(){
+    console.log($('#username').val())
+    console.log($('#userpass').val())
+    if($('#username').val()==''||$('#userpass').val()==''){
+        alert('用户名和密码不能为空！');
+        return false;
+    }else if($('#username').val().legth<6||$('#userpass').val().legth<6){
+        alert('用户名和密码不得少于6位！');
+        return false;
+    }
 	$.ajax({
 		type:"post",
 		url:"/user/login",
