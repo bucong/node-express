@@ -20,6 +20,7 @@ router.post('/get_check_msg',(req,res)=>{
     }
     console.log('生成的随机验证码是：'+code);
     registerCheckCode=code;
+
     res.send({
         code: 0,
         result:code,
@@ -92,6 +93,7 @@ router.post('/login',(req,res)=>{
                     loginRes++;
                 }
             }
+            req.session = user.name;
             res.send({
                 code:0,
                 result: loginRes,

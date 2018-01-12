@@ -1,3 +1,10 @@
+.index-head-nav .navbar-brand {
+  padding: 7px 15px;
+}
+.index-head-nav .navbar-brand img {
+  width: 36px;
+  height: 36px;
+}
 .flex {
   display: flex;
   align-items: center;

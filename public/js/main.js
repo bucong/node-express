@@ -52,7 +52,7 @@ function register(){
             if(res.code==0){
                 $('.alert-success').show();
                 setTimeout(function(){
-                    window.location.href="index.html";
+                    window.location.href="login.html";
                 },2000)
 
             }else{
@@ -84,6 +84,10 @@ function login(){
 			name:$('#username').val(),
 			pass:$('#userpass').val()
 		},
+        headers: {
+            Accept: "application/json; charset=utf-8",
+            session: '123'
+        },
 		async:true,
 		dataType:'JSON',
 		success:function(res){
@@ -91,8 +95,9 @@ function login(){
 			console.log(res);
 			if(res.result=='1'){
 				$('.alert-success').show();
-				setTimeout(function(){
-					window.location.href="list.html";
+                $.cookie("loginStatus", true, { expires: 7 });
+                setTimeout(function(){
+					window.location.href="index.html";
 				},2000)
 			}else{
 				$('.alert-danger').show();
