@@ -12,6 +12,8 @@ router.post('/news_insert',(req,res)=>{
         else{
             if(result.length>0){
                 res.send({
+                    code:1,
+                    result:'',
                     msg:'您的文章名已存在！'
                 })
             }else{
@@ -25,7 +27,9 @@ router.post('/news_insert',(req,res)=>{
                     if (error) throw error
                     else{
                         res.send({
-                            result: 'success'
+                            code:0,
+                            result: 'success',
+                            msg:''
                         })
                     }
                 });
@@ -41,7 +45,11 @@ router.get('/news_list',(req,res)=>{
     connection.query(sql, function (error, result) {
         if (error) throw error
         else{
-            res.status(200).json(result);
+            res.send({
+                code:0,
+                result:result,
+                msg:''
+            })
         }
     });
 });
@@ -54,7 +62,11 @@ router.get('/news_detail',(req,res)=>{
     connection.query(sql, function (error, result) {
         if (error) throw error
         else{
-            res.status(200).json(result[0]);
+            res.send({
+                code:0,
+                result:result[0],
+                msg:''
+            });
         }
     });
 });
@@ -76,7 +88,9 @@ router.post('/news_change',(req,res)=>{
         if (error) throw error
         else{
             res.send({
-                result: 'success'
+                code:0,
+                result: 'success',
+                msg:''
             })
         }
     });
@@ -91,7 +105,9 @@ router.get('/del_news',(req,res)=>{
         if (error) {throw error}
         else{
             res.send({
-                result: 'success'
+                code:0,
+                result: 'success',
+                msg:''
             })
         }
         console.log(result);

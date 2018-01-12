@@ -14,7 +14,12 @@ $('.get-check').click(function(){
         dataType:'JSON',
         success:function(res){
             console.log(res);
-			alert('短信验证码是'+res.checkCode);
+            if(res.code==0){
+                alert('短信验证码是'+res.result);
+            }else{
+                alert('获取失败！')
+            }
+
         },error:function(res){
             console.log(res)
         }
@@ -44,7 +49,7 @@ function register(){
         success:function(res){
             $('.alert').hide();
             console.log(res);
-            if(res.result=='success'){
+            if(res.code==0){
                 $('.alert-success').show();
                 setTimeout(function(){
                     window.location.href="index.html";
@@ -114,7 +119,7 @@ $('.index').on('click','.del',function(){
             dataType:'JSON',
             success:function(res){
                 console.log(res);
-                if(res.result=='success'){
+                if(res.code==0){
                     window.location.reload()
                 }else{
                     alert('删除失败');
@@ -148,7 +153,7 @@ $('.change-val').click(function(){
 		dataType:'JSON',
 		success:function(res){
 			console.log(res);
-			if(res.result=='success'){
+			if(res.code==0){
 				alert('修改成功')
 			}else{
 				alert('修改失败');
@@ -180,7 +185,7 @@ $('.sub-news').click(function(){
             dataType:'JSON',
             success:function(res){
                 console.log(res);
-                if(res.result=='success'){
+                if(res.code==0){
                     alert('上传成功')
                 }else{
                     alert(res.msg);
@@ -214,7 +219,7 @@ $('.change-news').click(function(){
             dataType:'JSON',
             success:function(res){
                 console.log(res);
-                if(res.result=='success'){
+                if(res.code==0){
                     alert('修改成功')
                 }else{
                     alert('修改失败');
@@ -246,7 +251,7 @@ $('#banner').change(function(){
         processData: false,
         success: function(res){
             console.log(res)
-            if(res.url){
+            if(res.code==0){
                 window.location.reload();
             }
         },error:function(res){
@@ -258,7 +263,7 @@ $('#banner').change(function(){
 //删除首页banner
 $('.banner-list').on('click','.del-banner',function(){
     console.log($(this).prev().attr('src'));
-    if(confirm('确定要删除该用户吗？')) {
+    if(confirm('确定要删除该图吗？')) {
         $.ajax({
             type: 'post',
             url: '/banner_del',
@@ -269,7 +274,7 @@ $('.banner-list').on('click','.del-banner',function(){
             dataType: 'JSON',
             success: function (res) {
                 console.log(res);
-                if (res.result == 'success') {
+                if (res.code == 0) {
                     window.location.reload();
                 }
             }, error: function (res) {

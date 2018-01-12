@@ -20,7 +20,11 @@ router.post('/get_check_msg',(req,res)=>{
     }
     console.log('生成的随机验证码是：'+code);
     registerCheckCode=code;
-    res.send({checkCode:code});
+    res.send({
+        code: 0,
+        result:code,
+        msg:''
+    });
 });
 
 //注册
@@ -32,10 +36,18 @@ router.post('/register',(req,res)=>{
     console.log(user.checkNum);
     console.log(user.mobile);
     if(registerCheckCode!=user.checkNum){
-        res.send({msg:'验证码不正确！'});
+        res.send({
+            code: 1,
+            result:'',
+            msg:'验证码不正确！'
+        });
         return false;
     }else if(registerMobile!=user.mobile){
-        res.send({msg:'手机号不一致！'});
+        res.send({
+            code: 1,
+            result:'',
+            msg:'手机号不一致！'
+        });
         return false;
     }
     connection.query('select * from user where username="'+user.name+'"', function (error, result) {
@@ -43,6 +55,8 @@ router.post('/register',(req,res)=>{
         else{
             if(result.length>0){
                 res.send({
+                    code:1,
+                    result:'',
                     msg:'您输入的用户名已存在！'
                 })
             }else{
@@ -52,7 +66,9 @@ router.post('/register',(req,res)=>{
                     if (error) {throw error}
                     else{
                         res.send({
-                            result: 'success'
+                            code:0,
+                            result: 'success',
+                            msg:''
                         })
                     }
                 });
@@ -77,7 +93,9 @@ router.post('/login',(req,res)=>{
                 }
             }
             res.send({
-                result: loginRes
+                code:0,
+                result: loginRes,
+                msg:''
             })
         }
     });
@@ -89,7 +107,11 @@ router.use('/userlist',(req,res)=>{
     connection.query('select * from user', function (error, result) {
         if (error) throw error
         else{
-            res.status(200).json(result);
+            res.send({
+                code:0,
+                result:result,
+                msg:''
+            })
         }
     });
 });
@@ -104,7 +126,9 @@ router.use('/del_user',(req,res)=>{
         if (error) {throw error}
         else{
             res.send({
-                result: 'success'
+                code:0,
+                result: 'success',
+                msg:''
             })
         }
         console.log(result);
@@ -122,7 +146,9 @@ router.use('/change_pass',(req,res)=>{
         if (error) {throw error}
         else{
             res.send({
-                result: 'success'
+                code:0,
+                result: 'success',
+                msg:''
             })
         }
     });

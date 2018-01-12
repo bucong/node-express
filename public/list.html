@@ -64,7 +64,7 @@
             dataType:'JSON',
             success:function(res){
                 console.log(res);
-                var imgList=res.banner;
+                var imgList=res.result;
                 var str='';
                 var indicators='';
                 for(var i=0;i<imgList.length;i++){
@@ -90,7 +90,7 @@
 				dataType:'JSON',
 				success:function(res){
 					console.log(res);
-					var list=res;
+					var list=res.result;
 					var str='';
 					for(let item of list){
 						str+='<li class="list-group-item flex"><span>'+item.username+'</span><span class="change-pass" data-target="#modal1" data-toggle="modal">修改密码</span><span class="del">&times;</span></li>'
@@ -108,7 +108,7 @@
           dataType:'JSON',
           success:function(res){
               console.log(res);
-              var list=res;
+              var list=res.result;
               var str='';
               for(let item of list){
                   str+='<li class="list-group-item"><a href="newsDetail.html?id='+item.id+'">'+item.name+'</a><span>类别：'+item.type+'</span></li>'

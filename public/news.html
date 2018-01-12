@@ -52,9 +52,10 @@
                 dataType:'JSON',
                 success:function(res){
                     console.log(res);
-                    $('#article-name').val(res.name);
-                    $('#type').val(res.type);
-                    $('.news #editor .w-e-text').html(res.content);
+                    var data=res.result;
+                    $('#article-name').val(data.name);
+                    $('#type').val(data.type);
+                    $('.news #editor .w-e-text').html(data.content);
                 },error:function(res){
                     console.log(res);
                 }

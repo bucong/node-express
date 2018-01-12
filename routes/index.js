@@ -37,7 +37,9 @@ router.get('/banner',(req,res)=>{
     fs.readdir('./public/images/banner', function (err,files) {
         console.log(files);
         res.send({
-            banner: files
+            code:0,
+            result: files,
+            msg:''
         })
     })
 });
@@ -58,7 +60,9 @@ router.post('/banner_set',multiparty(),function(req, res,next) {
                 console.log('写入图片成功');
                 //回发图片路径
                 res.send({
-                    url: posterUrl
+                    code:0,
+                    result: posterUrl,
+                    msg:''
                 })
             })
         })
@@ -75,7 +79,9 @@ router.post('/banner_del',function(req, res,next) {
             throw err;
         console.log('删除成功');
         res.send({
-            result: 'success'
+            code:0,
+            result: 'success',
+            msg:''
         });
     });
 });

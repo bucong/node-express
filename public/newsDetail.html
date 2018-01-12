@@ -30,10 +30,11 @@
 				dataType:'JSON',
 				success:function(res){
 					console.log(res);
-					$('.news-detail h2').html(res.name);
-					$('.news-detail h5').html('类别：'+res.type);
-					$('.news-detail i').html('时间：'+transDate(res.datetime));
-					$('.news-detail div').html(res.content);
+					var data=res.result;
+					$('.news-detail h2').html(data.name);
+					$('.news-detail h5').html('类别：'+data.type);
+					$('.news-detail i').html('时间：'+transDate(data.datetime));
+					$('.news-detail div').html(data.content);
 				},error:function(res){
 					console.log(res);
 				}
@@ -64,7 +65,7 @@
                   dataType:'JSON',
                   success:function(res){
                       console.log(res);
-                      if(res.result=='success'){
+                      if(res.code==0){
                           window.location.href="list.html";
 											}
                   },error:function(res){
