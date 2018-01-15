@@ -1,12 +1,14 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('./db');
+var http = require('http');
+var qs = require('querystring');
 
 //获取短信验证码
 var registerMobile='';
 var registerCheckCode='';
-router.post('/get_check_msg',(req,res)=>{
-    let user=req.body;
+router.post('/get_check_msg',(request,response)=>{
+    let user=request.body;
     console.log('短信验证码');
     console.log(user.mobile);
     registerMobile=user.mobile;
@@ -21,7 +23,37 @@ router.post('/get_check_msg',(req,res)=>{
     console.log('生成的随机验证码是：'+code);
     registerCheckCode=code;
 
-    res.send({
+    //发送手机验证码
+    // var checkData = qs.stringify({
+    //     phone: user.mobile,
+    //     sign: 1,
+    //     content: '您的注册验证码是'+code
+    // });
+    // var checkOptions={
+    //     host: 'http://dashboard.mob.com',
+    //     port: 80,
+    //     path: '/user/register',
+    //     method: 'post',
+    //     headers: {
+    //         'Content-Type': 'application/x-www-form-urlencoded'
+    //     }
+    // };
+    // var req = http.request(checkOptions,function(res){
+    //     console.log('短信api发送')
+    //     res.setEncoding('utf8');
+    //     res.on('data',function(data){
+    //         console.log('接收数据：')
+    //         console.log(data);
+    //     })
+    //     res.on('end',function(){
+    //
+    //     })
+    // });
+    // req.write(checkData);
+    // req.end();
+    //短信验证码结束
+
+    response.send({
         code: 0,
         result:code,
         msg:''

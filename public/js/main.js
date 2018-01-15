@@ -4,6 +4,18 @@ $('.get-check').click(function(){
         alert('手机号格式不正确！');
         return false;
     }
+    $('.get-check').attr('disabled','disabled');
+    var time=60;
+    timeSet=setInterval(function(){
+        time--;
+        if(time<=0){
+            $('.get-check').html('免费获取短信验证码');
+            $('.get-check').removeAttr('disabled');
+            clearInterval(timeSet);
+        }else{
+            $('.get-check').html('再次发送剩余：'+time+'s');
+        }
+    },1000);
     $.ajax({
         type:"post",
         url:"/user/get_check_msg",
@@ -19,7 +31,6 @@ $('.get-check').click(function(){
             }else{
                 alert('获取失败！')
             }
-
         },error:function(res){
             console.log(res)
         }
