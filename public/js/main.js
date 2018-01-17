@@ -45,6 +45,9 @@ function register(){
     }else if($('#username').val().legth<6||$('#userpass').val().legth<6){
         alert('用户名和密码不得少于6位！');
         return false;
+    }else if(!/^[A-Za-z0-9]+$/.test($('#username').val())){
+        alert('用户名为英文字母或者数字！');
+        return false;
     }
     $.ajax({
         type:"post",
