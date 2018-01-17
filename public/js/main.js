@@ -63,7 +63,7 @@ function register(){
             if(res.code==0){
                 $('.alert-success').show();
                 setTimeout(function(){
-                    window.location.href="login.html";
+                    window.location.href="login";
                 },2000)
 
             }else{
@@ -79,8 +79,8 @@ function register(){
 
 //登录
 function login(){
-    console.log($('#username').val())
-    console.log($('#userpass').val())
+    console.log($('#username').val());
+    console.log($('#userpass').val());
     if($('#username').val()==''||$('#userpass').val()==''){
         alert('用户名和密码不能为空！');
         return false;
@@ -96,8 +96,7 @@ function login(){
 			pass:$('#userpass').val()
 		},
         headers: {
-            Accept: "application/json; charset=utf-8",
-            session: '123'
+            Accept: "application/json; charset=utf-8"
         },
 		async:true,
 		dataType:'JSON',
@@ -106,9 +105,8 @@ function login(){
 			console.log(res);
 			if(res.result=='1'){
 				$('.alert-success').show();
-                $.cookie("loginStatus", true, { expires: 7 });
                 setTimeout(function(){
-					window.location.href="index.html";
+					window.location.href="/";
 				},2000)
 			}else{
 				$('.alert-danger').show();
@@ -119,7 +117,26 @@ function login(){
 	});
 	return false;
 }
-
+//退出登录
+$('.logout').click(function(){
+    $.ajax({
+        type:"get",
+        url:"/user/logout",
+        data:'',
+        async:true,
+        dataType:'JSON',
+        success:function(res){
+            console.log(res);
+            if(res.code==0){
+                window.location.reload()
+            }else{
+                alert('退出失败');
+            }
+        },error:function(res){
+            console.log(res);
+        }
+    });
+});
 
 //删除用户
 $('.index').on('click','.del',function(){

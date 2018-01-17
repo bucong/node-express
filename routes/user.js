@@ -123,9 +123,12 @@ router.post('/login',(req,res)=>{
             for(let item of result){
                 if(user.name==item.username && user.pass==item.userpass){
                     loginRes++;
+                    req.cookies.set('userInfo',JSON.stringify({
+                        id:item.id,
+                        name:item.username
+                    }));
                 }
             }
-            req.session = user.name;
             res.send({
                 code:0,
                 result: loginRes,
@@ -135,6 +138,16 @@ router.post('/login',(req,res)=>{
     });
 });
 
+//退出登录
+router.get('/logout',(req,res)=>{
+    console.log('退出登录');
+    req.cookies.set('userInfo',null);
+    res.send({
+        code: 0,
+        result: '',
+        msg: ''
+    })
+});
 //用户列表
 router.use('/userlist',(req,res)=>{
     console.log('用户列表');
@@ -187,6 +200,5 @@ router.use('/change_pass',(req,res)=>{
         }
     });
 });
-
 
 module.exports = router;

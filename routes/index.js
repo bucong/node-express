@@ -4,6 +4,31 @@ var connection = require('./db');
 var fs = require('fs');
 var multiparty = require('connect-multiparty');
 
+//页面
+router.get('/',function(req,res){
+    res.render('index',{
+        userInfo: req.userInfo
+    });
+});
+router.get('/index',function(req,res){
+    res.render('index');
+});
+router.get('/register',function(req,res){
+    res.render('register');
+});
+router.get('/bannerSet',function(req,res){
+    res.render('bannerSet');
+});
+router.get('/login',function(req,res){
+    res.render('login');
+});
+router.get('/news',function(req,res){
+    res.render('news');
+});
+router.get('/newsDetail',function(req,res){
+    res.render('newsDetail');
+});
+
 //上传图片接口
 router.post('/upload_img',multiparty(),function(req, res,next) {
     var posterData = req.files.imgFile;
