@@ -24,7 +24,7 @@
 				<div class="collapse navbar-collapse" id="coll1">
 					<ul class="nav navbar-nav navbar-right">
 						{% if userInfo.id %}
-						<li><a href="javascript:;" class="logout">退出</a></li>
+						<li><a href="javascript:;" class="logout">{{userInfo.name}} ， 退出</a></li>
 						{% else %}
 						<li><a href="login">登录</a></li>
 						<li><a href="register">注册</a></li>
