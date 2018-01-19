@@ -28,7 +28,7 @@ router.post('/get_check_msg',(request,response)=>{
         phone: user.mobile,
         apikey: '3614234760a278548889410472dd3185',
         tplId: '1',
-        content: '验证码:'+code
+        content: '注册验证码:'+code+'，请勿泄露。如不是本人发送，请勿理睬！'
     };//这是需要提交的数据
     var content = qs.stringify(data);
     var options = {
