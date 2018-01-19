@@ -24,39 +24,28 @@ router.post('/get_check_msg',(request,response)=>{
     registerCheckCode=code;
 
     //发送手机验证码
-    // var checkData = qs.stringify({
-    //     phone: user.mobile,
-    //     sign: 1,
-    //     content: '您的注册验证码是'+code
-    // });
-    // var checkOptions={
-    //     host: 'http://dashboard.mob.com',
-    //     port: 80,
-    //     path: '/user/register',
-    //     method: 'post',
-    //     headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded'
-    //     }
-    // };
-    // var req = http.request(checkOptions,function(res){
-    //     console.log('短信api发送')
-    //     res.setEncoding('utf8');
-    //     res.on('data',function(data){
-    //         console.log('接收数据：')
-    //         console.log(data);
-    //     })
-    //     res.on('end',function(){
-    //
-    //     })
-    // });
-    // req.write(checkData);
-    // req.end();
-    //短信验证码结束
+    var data = {
+        phone: user.mobile,
+        apikey: '3614234760a278548889410472dd3185',
+        tplId: '1',
+        content: '验证码:'+code
+    };//这是需要提交的数据
+    var content = qs.stringify(data);
+    var options = {
+        hostname: 'api.sodocloud.com',
+        port: '80',
+        path: '/sms/send_msg?' + content,
+        method: 'GET'
+    };
+    http.get(options,function(res){
+        res.setEncoding('utf8');
+        res.on('data',function(data){
+            console.log('get数据：')
+            console.log(data);
+        });
+        res.on('end',function(){
 
-    response.send({
-        code: 0,
-        result:code,
-        msg:''
+        })
     });
 });
 
