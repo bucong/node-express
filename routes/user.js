@@ -47,6 +47,11 @@ router.post('/get_check_msg',(request,response)=>{
 
         })
     });
+    res.send({
+        code: 0,
+        result:'',
+        msg:''
+    })
 });
 
 //注册
