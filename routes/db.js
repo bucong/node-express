@@ -1,9 +1,9 @@
 const mysql = require('mysql');
 //连接数据库
 var connection = mysql.createConnection({
-    host     : 'bucong1129.mysql.rds.aliyuncs.com',
+    host     : 'localhost',
     user     : 'root',
-    password : 'Bucong5733',
+    password : 'Bucong0934',
     database : 'node'
 });
 connection.connect();
