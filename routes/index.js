@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var connection = require('./db');
+var connection = require('./utils/db');
 var fs = require('fs');
 var multiparty = require('connect-multiparty');
 
@@ -52,7 +52,11 @@ router.post('/upload_img',multiparty(),function(req, res,next) {
             })
         })
     }else{
-        res.send('上传失败');
+        res.send({
+            code: 1,
+            result: {},
+            msg: '上传失败'
+        });
     }
 });
 

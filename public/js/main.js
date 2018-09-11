@@ -120,6 +120,27 @@ function login(){
 	});
 	return false;
 }
+//QQ登录
+$('.login-by-qq').click(function(){
+    window.location.href="https://graph.qq.com/oauth2.0/authorize?client_id=101479867&redirect_uri=http%3a%2f%2fshare.zrpic.com%2fjnwtv-live-cartoon-h5%2ftest.html&response_type=code&scope=get_user_info&state=";
+});
+$('.login-by-qq-send').click(function(){
+    let code = $('#code').val();
+    $.ajax({
+        type: "post",
+        url: "/user/registerByQQ",
+        data:{
+            code: code
+        },
+        async:true,
+        dataType:'JSON',
+        success:function(res){
+            console.log(res);
+        },error:function(res){
+            console.log(res);
+        }
+    });
+});
 //退出登录
 $('.logout').click(function(){
     $.ajax({

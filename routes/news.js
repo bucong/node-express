@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var connection = require('./db');
+var connection = require('./utils/db');
 
 //插入文章
 router.post('/news_insert',(req,res)=>{

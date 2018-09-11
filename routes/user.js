@@ -1,8 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var connection = require('./db');
 var http = require('http');
 var qs = require('querystring');
+const https = require('https');
+var connection = require('./utils/db');
+var fetch = require('./utils/fetch');
+const loginByQQ = require('./utils/loginByQQ');
 
 //获取短信验证码
 var registerMobile='';
@@ -29,29 +32,68 @@ router.post('/get_check_msg',(request,response)=>{
         apikey: '3614234760a278548889410472dd3185',
         tplId: '1',
         content: '注册验证码:'+code+'，请勿泄露。如不是本人发送，请勿理睬！'
-    };//这是需要提交的数据
-    var content = qs.stringify(data);
-    var options = {
-        hostname: 'api.sodocloud.com',
-        port: '80',
-        path: '/sms/send_msg?' + content,
-        method: 'GET'
-    };
-    http.get(options,function(res){
+    };//需要提交的数据
+    http.get('http://api.sodocloud.com/sms/send_msg?'+qs.stringify(data),function(res){
         res.setEncoding('utf8');
         res.on('data',function(data){
-            console.log('get数据：')
+            console.log('get数据：');
             console.log(data);
         });
-        res.on('end',function(){
-
-        })
+        res.on('end', (data) => {
+            //console.log(data);
+        });
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
     });
     res.send({
         code: 0,
-        result:'',
+        result:{},
         msg:''
     })
+});
+
+//QQ授权登录
+router.post('/registerByQQ',(req,res)=>{
+    let user = req.body;
+    console.log('QQ登录');
+    console.log(user.code);
+    loginByQQ(user.code, (resp)=>{
+        console.log(resp);
+        if(resp.result === 0){
+            connection.query('select * from user where openIdQQ="'+resp.user.openId+'"', function (error, result) {
+                if (error) throw error;
+                else{
+                    if(result.length>0){
+                        res.send({
+                            code:0,
+                            result:result[0],
+                            msg:''
+                        })
+                    }else{
+                        let userInfo = resp.user.userInfo;
+                        let sql='insert into user(openIdQQ, username, userpass, mobile) value(?,?,?,?)';
+                        let sqlData=[resp.user.openId, userInfo.nickname, userInfo.city, userInfo.gender];
+                        connection.query(sql,sqlData, function (error, result) {
+                            if (error) {throw error}
+                            else{
+                                res.send({
+                                    code:0,
+                                    result: 'success',
+                                    msg:''
+                                })
+                            }
+                        });
+                    }
+                }
+            });
+        }else{
+            res.send({
+                code: 1,
+                result: {},
+                msg: resp.msg
+            });
+        }
+    });
 });
 
 //注册
@@ -65,14 +107,14 @@ router.post('/register',(req,res)=>{
     if(registerCheckCode!=user.checkNum){
         res.send({
             code: 1,
-            result:'',
+            result:{},
             msg:'验证码不正确！'
         });
         return false;
     }else if(registerMobile!=user.mobile){
         res.send({
             code: 1,
-            result:'',
+            result:{},
             msg:'手机号不一致！'
         });
         return false;
@@ -83,7 +125,7 @@ router.post('/register',(req,res)=>{
             if(result.length>0){
                 res.send({
                     code:1,
-                    result:'',
+                    result:{},
                     msg:'您输入的用户名已存在！'
                 })
             }else{
@@ -138,7 +180,7 @@ router.get('/logout',(req,res)=>{
     req.cookies.set('userInfo',null);
     res.send({
         code: 0,
-        result: '',
+        result: {},
         msg: ''
     })
 });
