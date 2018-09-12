@@ -1,16 +1,16 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var Cookies = require('cookies');
-var bodyParser = require('body-parser');
-var swig = require('swig');
+let express = require('express');
+let path = require('path');
+let favicon = require('serve-favicon');
+let logger = require('morgan');
+let Cookies = require('cookies');
+let bodyParser = require('body-parser');
+let swig = require('swig');
 
-var index = require('./routes/index');
-var user = require('./routes/user');
-var news = require('./routes/news');
+let index = require('./routes/index');
+let user = require('./routes/user');
+let news = require('./routes/news');
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.engine('html',swig.renderFile);
@@ -46,7 +46,7 @@ app.use('/news', news);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });

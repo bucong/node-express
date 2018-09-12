@@ -245,6 +245,7 @@ $('.login-by-qq').click(function () {
 });
 //退出登录
 $('.logout').click(function () {
+  handleLocalStorage('remove', 'userInfo');
   $.ajax({
     type: "get",
     url: "/user/logout",

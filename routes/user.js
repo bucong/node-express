@@ -86,7 +86,7 @@ router.post('/registerByQQ', (req, res) => {
   loginByQQ(user.code, (resp) => {
     console.log(resp);
     if (resp.result === 0) {
-      connection.query('select * from user where openIdQQ="' + resp.user.openId + '"', function (error, result) {
+      connection.query('select gender,headImg,id,mobile,userName from user where openIdQQ="' + resp.user.openId + '"', function (error, result) {
         if (error) throw error;
         else {
           if (result.length > 0) {
@@ -104,7 +104,7 @@ router.post('/registerByQQ', (req, res) => {
                 throw error
               }
               else {
-                connection.query('select * from user where openIdQQ="' + resp.user.openId + '"', function (error, result) {
+                connection.query('select gender,headImg,id,mobile,userName from user where openIdQQ="' + resp.user.openId + '"', function (error, result) {
                   if (error) throw error;
                   else {
                     if (result.length > 0) {
@@ -154,10 +154,14 @@ router.post('/register', (req, res) => {
     } else {
       console.log(result[0].verificationCode);
       if(result[0].verificationCode === user.checkNum){
-        connection.query('select * from user where mobile="' + user.mobile + '"', function (error, result) {
+        connection.query('select gender,headImg,id,mobile,userName from user where mobile="' + user.mobile + '"', function (error, result) {
           if (error) throw error;
           else {
             if (result.length > 0) {
+              req.cookies.set('userInfo', JSON.stringify({
+                id: result[0].id,
+                name: result[0].mobile
+              }));
               res.send({
                 code: 0,
                 result: result[0],
@@ -179,34 +183,6 @@ router.post('/register', (req, res) => {
           msg: '验证码填写错误'
         })
       }
-    }
-  });
-});
-
-//登录
-router.post('/login', (req, res) => {
-  let user = req.body;
-  console.log('登录');
-  console.log(user.name);
-  console.log(user.pass);
-  connection.query('select * from user', function (error, result) {
-    if (error) throw error
-    else {
-      let loginRes = 0;
-      for (let item of result) {
-        if (user.name == item.username && user.pass == item.userpass) {
-          loginRes++;
-          req.cookies.set('userInfo', JSON.stringify({
-            id: item.id,
-            name: item.username
-          }));
-        }
-      }
-      res.send({
-        code: 0,
-        result: loginRes,
-        msg: ''
-      })
     }
   });
 });
