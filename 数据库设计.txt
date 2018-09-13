@@ -1,0 +1,17 @@
+数据库名：node
+  表1：user
+  字段：	id(int)
+	openIdQQ
+	verificationCode
+	verificationTime
+	userName
+	headImg
+	mobile
+	gender
+  表2：news
+  字段：	id(int)
+	type
+	content(longtext)
+	name
+	datetime
+
